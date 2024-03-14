@@ -27,6 +27,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap4',
+    'daphne',
     'channels',
 
     'django.contrib.admin',

@@ -49,11 +49,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = event['message']
         username = event['username']
 
-        # Send message to WebSocket
-        await self.send(text_data=json.dumps({
-            'message': message,
-            'username': username
-        }))
+        if len(message) > 0:
+            # Send message to WebSocket
+            await self.send(text_data=json.dumps({
+                'message': message,
+                'username': username
+            }))
 
     @sync_to_async
     def save_message(self, username, room, message):
