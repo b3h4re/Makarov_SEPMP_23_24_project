@@ -5,6 +5,8 @@ from django.db import models
 class Room(models.Model):
     name = models.CharField(max_length=256)
     slug = models.SlugField(unique=True)
+    # user1 = models.ForeignKey(User, related_name="rooms", on_delete=models.DO_NOTHING)
+    # user2 = models.ForeignKey(User, related_name="rooms", on_delete=models.DO_NOTHING)
 
 
 class Message(models.Model):

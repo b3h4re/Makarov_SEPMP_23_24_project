@@ -31,7 +31,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = data['message']
         username = data['username']
         room = data['room']
+        # users = [room.user1.username, room.user2.username]
 
+        # if username not in users:
+        #     raise PermissionError("You do not have access to this ")
         await self.save_message(username, room, message)
 
         # Send message to room group
