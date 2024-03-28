@@ -26,6 +26,8 @@
 
 {% block scripts %}
 {{ room.slug|json_script:"json-roomname" }}
+{{ room.user1.username|json_script:"json-roomuser1" }}
+{{ room.user2.username|json_script:"json-roomuser2" }}
 {{ request.user.username|json_script:"json-username" }}
 
 <script src="{% static  'js/message.js' %}"></script>

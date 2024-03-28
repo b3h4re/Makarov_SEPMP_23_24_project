@@ -1,4 +1,6 @@
 const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+const roomUser1 = JSON.parse(document.getElementById('json-roomuser1').textContent);
+const roomUser2 = JSON.parse(document.getElementById('json-roomuser2').textContent);
 const userName = JSON.parse(document.getElementById('json-username').textContent);
 const chatSocket = new WebSocket(
     'ws://'
@@ -40,13 +42,17 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
     console.log({
         'message': message,
         'username': userName,
-        'room': roomName
+        'room': roomName,
+        'user1': roomUser1,
+        'user2': roomUser2
     })
 
     chatSocket.send(JSON.stringify({
         'message': message,
         'username': userName,
-        'room': roomName
+        'room': roomName,
+        'user1': roomUser1,
+        'user2': roomUser2
     }));
 
     messageInputDom.value = '';

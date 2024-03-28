@@ -1,6 +1,7 @@
 import json
 
 from django.apps import apps
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
@@ -30,12 +31,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         print(data)
         message = data['message']
         username = data['username']
-        room = data['room']
-        # users = [room.user1.username, room.user2.username]
+        room_name = data['room']
+        users = [data['user1'], data['user2']]
 
-        # if username not in users:
-        #     raise PermissionError("You do not have access to this ")
-        await self.save_message(username, room, message)
+        if username not in users:
+            return
+        await self.save_message(username, room_name, message)
 
         # Send message to room group
         await self.channel_layer.group_send(
