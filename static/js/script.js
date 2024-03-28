@@ -67,3 +67,25 @@ if (photoInput)
 // Scroll to Bottom
 const conversationThread = document.querySelector(".room__box");
 if (conversationThread) conversationThread.scrollTop = conversationThread.scrollHeight;
+
+
+
+// for filter
+document.addEventListener("DOMContentLoaded", function() {
+  const filterInput = document.getElementById('filterInput');
+
+  filterInput.addEventListener('input', function() {
+    const filterValue = filterInput.value.toLowerCase();
+    const students = document.querySelectorAll('.media');
+
+    students.forEach(function(student) {
+      const studentName = student.querySelector('.article-metadata').textContent.toLowerCase();
+
+      if(studentName.includes(filterValue)) {
+        student.style.display = 'block';
+      } else {
+        student.style.display = 'none';
+      }
+    });
+  });
+});

@@ -5,10 +5,10 @@ from django.shortcuts import render
 from config import urls
 
 
-# @login_required(login_url=urls.auth_view.)
+@login_required
 def room(request, slug):
     room = apps.get_model('room', 'Room').objects.all().get(slug=slug)
-    messages = apps.get_model('room', 'Message').objects.all().filter(room=room)[0:25]
+    messages = apps.get_model('room', 'Message').objects.all().filter(room=room)
     context = {
         "room": room,
         "messages": messages
