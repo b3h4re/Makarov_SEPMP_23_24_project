@@ -2,66 +2,91 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-<!--<div class="p-10 lg:p-20 text-center">-->
-<!--    <h1 class="text-3xl lg:text-6xl text-black">{{ room.name }}</h1>-->
-<!--</div>-->
-<div class="container mx-auto px-4 lg:px-20 py-10 lg:py-20">
-<!--    <h1 class="text-3xl lg:text-6xl text-center text-black mb-8">{{ room.name }}</h1>-->
 
-    <div class="lg:w-3/4 mx-auto p-4 bg-white rounded-xl shadow-lg mb-8">
-        <div class="chat-messages space-y-3" id="chat-messages">
-            {% for m in messages %}
-            <div class="flex items-center mb-2">
-                <div class="flex-shrink-0">
-                    <img class="rounded-circle chat-img" src="{{ m.user.profile.image.url }}">
-                    <div class="text-sm font-medium text-gray-900">{{ m.user.username }}</div>
-                </div>
-                <div class="ml-3 flex items-center">
-
-                    <div class="text-sm text-gray-700">{{ m.content }}</div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+<div class="row">
+  <section class="chat">
+    <div class="header-chat">
+      <i class="icon fa fa-user-o" aria-hidden="true"></i>
+      <p class="name">
+          {% if request.user.username == room.user1.username %}
+          {{ room.user2.first_name }} {{ room.user2.last_name }}
+          {% else %}
+          {{ room.user1.first_name }} {{ room.user1.last_name }}
+          {% endif %}
+      </p>
+      <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
     </div>
-
-    <div class="lg:w-3/4 mx-auto p-4 bg-white rounded-xl shadow-lg">
-        <form method="post" action="." class="flex">
-            <input type="text" name="content" class="flex-1 mr-3 py-2 px-4 rounded-lg border border-gray-300
-            focus:outline-none focus:border-teal-600" placeholder="Your message..." id="chat-message-input">
-            <button class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700 focus:outline-none btn btn-promary"
-                    id="chat-message-submit">Send</button>
-        </form>
+    <div class="messages-chat">
+        {% for m in messages %}
+            {% if m.user.username == request.user.username %}
+                <div class="message text-only">
+                    <div class="response">
+                      <p class="text">{{ m.content }}</p>
+                    </div>
+                </div>
+            {% else %}
+                <div class="message">
+                    <div class="photo" style="background-image: url({{ m.user.profile.image.url }})">
+<!--                      <div class="online"></div>-->
+                    </div>
+                    <p class="text">{{ m.content }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
+    <div class="footer-chat">
+      <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
+      <input type="text" class="write-message" placeholder="Type your message here" id="chat-message-input"></input>
+      <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" id="chat-message-submit"></i>
+    </div>
+  </section>
 </div>
 
-<!--<div class="lg:w-2/4 mx-4 lg:mx-auto p-4 bg-white rounded-xl">-->
-<!--    {% for m in messages %}-->
-<!--        <div class="chat-messages space-y-3" id="chat-messages">-->
-<!--        <b>{{ m.user.username }}</b>: {{ m.content }}<br>-->
+
+<!--<div class="container mx-auto px-4 lg:px-20 py-10 lg:py-20">-->
+<!--&lt;!&ndash;    <h1 class="text-3xl lg:text-6xl text-center text-black mb-8">{{ room.name }}</h1>&ndash;&gt;-->
+
+<!--    <section class="chat lg:w-3/4 mx-auto p-4 bg-white rounded-xl shadow-lg mb-8"> &lt;!&ndash;"lg:w-3/4 mx-auto p-4 bg-white rounded-xl shadow-lg mb-8" &ndash;&gt;-->
+<!--        <div class="messages-chat space-y-3" id="chat-messages">-->
+<!--            {% for m in messages %}-->
+<!--            {% if m.user.username == request.user.username %}-->
+<!--                <div class="message text-only">-->
+<!--                    <p class="text">{{ m.content }}</p>-->
+<!--                </div>-->
+<!--            {% else %}-->
+<!--                <div class="message">-->
+<!--                    <div class="photo" style="background-image: url({{ m.user.profile.image.url }})">-->
+<!--&lt;!&ndash;                      <div class="online"></div>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <p class="text">{{ m.content }}</p>-->
+<!--                </div>-->
+<!--            {% endif %}-->
+<!--            {% endfor %}-->
+
+<!--&lt;!&ndash;            <div class="flex items-center mb-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="flex-shrink-0">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <img class="rounded-circle chat-img" src="{{ m.user.profile.image.url }}">&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="ml-3 flex items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="text-sm font-bold text-gray-900">{{ m.user.username }}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="text-sm text-gray-700">{{ m.content }}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
 <!--        </div>-->
-<!--&lt;!&ndash;    {% if m.user.username == request.user.username %}&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="chat-messages space-y-3" id="chat-messages-self">&ndash;&gt;-->
-<!--&lt;!&ndash;        <b>              {{ m.user.username }}</b>: {{ m.content }}<br>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    {% else %}&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="chat-messages space-y-3" id="chat-messages-other">&ndash;&gt;-->
-<!--&lt;!&ndash;        <b>{{ m.user.username }}</b>: {{ m.content }}<br>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    {% endif %}&ndash;&gt;-->
-<!--    {% endfor %}-->
+
+<!--        <div class="footer-chat lg:w-3/4 mx-auto p-4 bg-white rounded-xl shadow-lg">-->
+<!--        <form method="post" action="." class="flex">-->
+<!--            <input type="text" name="content" class="flex-1 mr-3 py-2 px-4 rounded-lg border border-gray-300-->
+<!--            focus:outline-none focus:border-teal-600" placeholder="Your message..." id="chat-message-input">-->
+<!--            <button class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700 focus:outline-none btn btn-primary"-->
+<!--                    id="chat-message-submit">Send</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--    </section>-->
+
+
 <!--</div>-->
 
-<!--<div class="lg:w-2/4 mt-6 mx-4 lg:mx-auto p-4 bg-white rounded-xl">-->
-<!--    <form method="post" action="." class="flex">-->
-<!--        <input type="text" name="content" class="flex-1 mr-3" placeholder="Your message..." id="chat-message-input">-->
-
-<!--        <button-->
-<!--            class="px-5 py-3 rounded-xl text-black bg-teal-600 hover:bg-teal-700"-->
-<!--            id="chat-message-submit"-->
-<!--        >Отправить</button>-->
-<!--    </form>-->
-<!--</div>-->
 {% endblock content %}
 
 {% block scripts %}
