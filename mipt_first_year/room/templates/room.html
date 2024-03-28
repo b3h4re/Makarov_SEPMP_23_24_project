@@ -16,7 +16,7 @@
       </p>
       <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
     </div>
-    <div class="messages-chat">
+    <div class="messages-chat" id="chat-messages">
         {% for m in messages %}
             {% if m.user.username == request.user.username %}
                 <div class="message text-only">
