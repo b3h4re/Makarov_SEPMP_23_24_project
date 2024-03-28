@@ -1,7 +1,6 @@
 import json
 
 from django.apps import apps
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
@@ -19,7 +18,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
 
-    async def disconnect(self):
+    async def disconnect(self, code):
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
@@ -32,10 +31,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = data['message']
         username = data['username']
         room_name = data['room']
-        users = [data['user1'], data['user2']]
+        room_users = [data['user1'], data['user2']]
 
-        if username not in users:
+        if username not in room_users:
             return
+
+        if len(message) == 0:
+            return
+
         await self.save_message(username, room_name, message)
 
         # Send message to room group

@@ -60,13 +60,10 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
     return false
 };
 
-/**
-* A function for finding the messages element, and scroll to the bottom of it.
-*/
+
 function scrollToBottom() {
     let objDiv = document.getElementById("chat-messages");
     objDiv.scrollTop = objDiv.scrollHeight;
 }
 
-// Add this below the function to trigger the scroll on load.
 scrollToBottom();

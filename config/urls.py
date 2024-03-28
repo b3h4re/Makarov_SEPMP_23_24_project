@@ -1,14 +1,13 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
 from django.contrib.auth import views as auth_view
+from django.urls import path
 
-from mipt_first_year.student.views import user_page
-from mipt_first_year.users import views as users_view
 from mipt_first_year.base import views as base_view
 from mipt_first_year.room import views as room_view
-
+from mipt_first_year.student.views import user_page
+from mipt_first_year.users import views as users_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
