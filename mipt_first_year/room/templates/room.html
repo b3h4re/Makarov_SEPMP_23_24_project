@@ -14,7 +14,6 @@
           {{ room.user1.first_name }} {{ room.user1.last_name }}
           {% endif %}
       </p>
-      <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
     </div>
     <div class="messages-chat" id="chat-messages">
         {% for m in messages %}
@@ -35,7 +34,6 @@
         {% endfor %}
     </div>
     <div class="footer-chat">
-      <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
       <input type="text" class="write-message" placeholder="Type your message here" id="chat-message-input"></input>
       <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" id="chat-message-submit"></i>
     </div>
