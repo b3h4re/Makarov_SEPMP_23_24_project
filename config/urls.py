@@ -22,7 +22,8 @@ urlpatterns = [
     path('password-reset-confirm/<uidb64>/<token>', auth_view.PasswordResetConfirmView.as_view(
         template_name='password_reset_confirm.html'), name='password_reset_confirm'),
     path('profile/', users_view.profile, name="profile"),
-    path("user/<str:username>/", user_page, name="user_page"),
+    # path("user/<str:username>/", user_page, name="user_page"),
+    path("user/<int:user_id>/", user_page, name="user_page"),
     path('<slug:slug>/', room_view.room, name='room'),
 ]
 

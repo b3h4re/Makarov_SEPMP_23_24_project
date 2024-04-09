@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
@@ -13,5 +14,18 @@
       </div>
         <p class="article-content">{{ student.about }}</p>
       <!-- FORM HERE -->
+        <button class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700 focus:outline-none btn btn-primary"
+        id="start-chat">
+            Написать сообщение
+        </button>
     </div>
 {% endblock content %}
+
+{% block scripts %}
+
+{{ request.user.username|json_script:"json-username" }}
+{{ student.user.username|json_script:"json-student-username" }}
+
+<script src="{% static  'js/create_room.js' %}"></script>
+
+{% endblock scripts %}

@@ -1,11 +1,9 @@
-from django.apps import apps
 from django.shortcuts import render
 from django.contrib.auth.models import User
 
 
-def user_page(request, username):
-    Student = apps.get_model('student', 'Student')
-    user = User.objects.all().filter(username=username).first()
+def user_page(request, user_id):
+    user = User.objects.get(id=user_id)
 
     context = {
         'student': user.student
