@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mipt_first_year',
     'mipt_first_year.base.apps.BaseConfig',
     'mipt_first_year.users.apps.UsersConfig',
     'mipt_first_year.student.apps.StudentConfig',
@@ -87,7 +88,7 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mipt_1year_project_db',
+        'NAME': 'mipt_sepmp_23_24_project_db',
         'USER': 'lev',
         'PASSWORD': 'F10Mak45Lev4514',
         'HOST': '127.0.0.1',
