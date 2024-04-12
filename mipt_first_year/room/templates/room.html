@@ -8,10 +8,10 @@
     <div class="header-chat">
       <i class="icon fa fa-user-o" aria-hidden="true"></i>
       <p class="name">
-          {% if request.user.username == room.user1.username %}
-          {{ room.user2.first_name }} {{ room.user2.last_name }}
+          {% if request.user.username == room.room_user.username %}
+          {{ room.room_student.first_name }} {{ room.room_student.last_name }}
           {% else %}
-          {{ room.user1.first_name }} {{ room.user1.last_name }}
+          {{ room.room_user.first_name }} {{ room.room_user.last_name }}
           {% endif %}
       </p>
     </div>
@@ -89,8 +89,8 @@
 
 {% block scripts %}
 {{ room.slug|json_script:"json-roomname" }}
-{{ room.user1.username|json_script:"json-roomuser1" }}
-{{ room.user2.username|json_script:"json-roomuser2" }}
+{{ room.room_user.username|json_script:"json-roomuser" }}
+{{ room.room_student.username|json_script:"json-roomstudent" }}
 {{ request.user.username|json_script:"json-username" }}
 
 <script src="{% static  'js/message.js' %}"></script>

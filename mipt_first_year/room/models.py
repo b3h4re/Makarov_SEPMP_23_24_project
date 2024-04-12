@@ -1,17 +1,35 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from config.settings import DEFAULT_USER_ID
+
+
+def get_slug_from_usernames(username1, username2):
+    return hex(hash(username1 + username2))[2:]
+
+
+def get_default_slug():
+    return get_slug_from_usernames(User.objects.get(id=DEFAULT_USER_ID).username,
+                                   User.objects.get(id=DEFAULT_USER_ID).username)
+
 
 class Room(models.Model):
 
+    def get_last_message(self):
+        messages = self.messages.get()
+        print(messages)
+        return messages.first()
+
     @staticmethod
-    def default_user():
-        return User.objects.filter(username="default_user___________").first().username
+    def get_default_user():
+        return User.objects.get(id=DEFAULT_USER_ID).username
 
     name = models.CharField(max_length=256)
     slug = models.SlugField(unique=True)
-    user1 = models.ForeignKey(User, related_name="user1", on_delete=models.DO_NOTHING, default=default_user())
-    user2 = models.ForeignKey(User, related_name="user2", on_delete=models.DO_NOTHING, default=default_user())
+    room_student = models.ForeignKey(User, related_name="room_student", on_delete=models.DO_NOTHING,
+                                     default=get_default_user())
+    room_user = models.ForeignKey(User, related_name="room_user", on_delete=models.DO_NOTHING,
+                                  default=get_default_user())
 
 
 class Message(models.Model):

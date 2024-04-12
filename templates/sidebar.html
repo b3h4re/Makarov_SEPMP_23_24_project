@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %}
+
 <div class="col-md-4">
   <div class="content-section">
 
@@ -9,7 +11,8 @@
                   aria-controls="panelsStayOpen-collapseOne"></button></h2>
         <div id="panelsStayOpen-collapse1" class="accordion-collapse collapse show">
           <div class="accordion-body">
-
+              <a class="btn" href="{% if user.is_authenticated %}{% url 'list_rooms' user_id=user.id %}
+                                    {% else %}{% url 'login' %}{% endif %}">Перейти к сообщениям</a>
           </div>
         </div>
       </div>

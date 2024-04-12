@@ -14,18 +14,23 @@
       </div>
         <p class="article-content">{{ student.about }}</p>
       <!-- FORM HERE -->
-        <button class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700 focus:outline-none btn btn-primary"
-        id="start-chat">
+        {% if request.user.id != student.user.id %}
+        <a class="btn btn-primary" id="start-chat" href="
+        {% if user.is_authenticated %}{% url 'start_chat' student_id=student.user.id user_id=request.user.id %}{% else %}
+        {% url 'login' %}{% endif %}">
             Написать сообщение
-        </button>
+        </a>
+        {% endif %}
     </div>
 {% endblock content %}
 
-{% block scripts %}
+<!--{% block scripts %}-->
 
-{{ request.user.username|json_script:"json-username" }}
-{{ student.user.username|json_script:"json-student-username" }}
+<!--{{ request.user.username|json_script:"json-username" }}-->
+<!--{{ request.user.id|json_script:"json-user-id" }}-->
+<!--{{ student.user.username|json_script:"json-student-username" }}-->
 
-<script src="{% static  'js/create_room.js' %}"></script>
 
-{% endblock scripts %}
+<!--&lt;!&ndash;<script src="{% static  'js/create_room.js' %}"></script>&ndash;&gt;-->
+
+<!--{% endblock scripts %}-->

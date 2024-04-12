@@ -6,7 +6,9 @@ from django.urls import path
 
 from mipt_first_year.base import views as base_view
 from mipt_first_year.room import views as room_view
+from mipt_first_year.room.views import list_rooms
 from mipt_first_year.student.views import user_page
+from mipt_first_year.student.views import start_chat
 from mipt_first_year.users import views as users_view
 
 urlpatterns = [
@@ -24,7 +26,9 @@ urlpatterns = [
     path('profile/', users_view.profile, name="profile"),
     # path("user/<str:username>/", user_page, name="user_page"),
     path("user/<int:user_id>/", user_page, name="user_page"),
-    path('<slug:slug>/', room_view.room, name='room'),
+    path("start-chat/<int:student_id>/<int:user_id>", start_chat, name="start_chat"),
+    path("user/<int:user_id>/rooms", list_rooms, name="list_rooms"),
+    path('room/<slug:slug>/', room_view.room, name='room'),
 ]
 
 if settings.DEBUG:

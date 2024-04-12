@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<h3>Чаты</h3>
+    {% for room in rooms %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+                {% if request.user.username == room.room_user.username %}
+                    <img class="rounded-circle student-img" src="{{ room.room_student.profile.image.url }}">
+                {% else %}
+                    <img class="rounded-circle student-img" src="{{ room.room_user.profile.image.url }}">
+                {% endif %}
+                <a class="mr-2" href="{% url 'room' slug=room.slug %}">Перейти к чату</a>
+                <small class="text-muted">{{ room.get_last_message }}</small>
+            </div>
+            <p class="article-content">{{ student.about }}</p>
+          </div>
+        </article>
+    {% endfor %}
+
+{% endblock %}

@@ -1,5 +1,4 @@
 import json
-
 from django.apps import apps
 from django.contrib.auth.models import User
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -24,14 +23,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
-    # Receive message from WebSocket
     async def receive(self, text_data):
         data = json.loads(text_data)
         print(data)
         message = data['message']
         username = data['username']
         room_name = data['room']
-        room_users = [data['user1'], data['user2']]
+        room_users = [data['user'], data['student']]
 
         if username not in room_users:
             return
@@ -51,7 +49,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
         )
 
-    # Receive message from room group
     async def chat_message(self, event):
         message = event['message']
         username = event['username']
