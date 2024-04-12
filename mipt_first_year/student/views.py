@@ -32,4 +32,6 @@ def start_chat(request, student_id, user_id):
         apps.get_model('room', 'Room').objects.create(room_user=user, room_student=student, slug=slug,
                                                       name=student.username + user.username)
 
-    return redirect(f'/{slug}')
+    print(slug)
+
+    return redirect(f'/room/{slug}')
