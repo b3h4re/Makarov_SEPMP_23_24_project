@@ -1,5 +1,7 @@
-FROM python:3-onbuild
+FROM python:3.11
+
+RUN pip install --upgrade pip
 
 EXPOSE 5000
 
-CMD ["python", "manage.py", "runserver"]
+CMD ["python", "./manage.py"]
