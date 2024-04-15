@@ -1,16 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
 from config.settings import DEFAULT_USER_ID
-
-
-def get_slug_from_usernames(username1, username2):
-    return hex(hash(username1 + username2))[2:]
-
-
-def get_default_slug():
-    return get_slug_from_usernames(User.objects.get(id=DEFAULT_USER_ID).username,
-                                   User.objects.get(id=DEFAULT_USER_ID).username)
 
 
 class Room(models.Model):
