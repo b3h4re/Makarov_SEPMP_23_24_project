@@ -5,7 +5,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-sys.path.insert(0, os.path.join(BASE_DIR, 'mipt_first_year'))
+MAIN = "mipt_first_year"
+
+sys.path.insert(0, os.path.join(BASE_DIR, MAIN))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -20,11 +22,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'mipt_first_year',
-    'mipt_first_year.base.apps.BaseConfig',
-    'mipt_first_year.users.apps.UsersConfig',
-    'mipt_first_year.student.apps.StudentConfig',
-    'mipt_first_year.room.apps.RoomConfig',
+    MAIN,
+    MAIN + '.base.apps.BaseConfig',
+    MAIN + '.users.apps.UsersConfig',
+    MAIN + '.student.apps.StudentConfig',
+    MAIN + '.room.apps.RoomConfig',
 
     'crispy_forms',
     'crispy_bootstrap4',
