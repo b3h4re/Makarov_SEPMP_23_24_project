@@ -4,11 +4,8 @@ from config.settings import DEFAULT_USER_ID
 
 
 class Room(models.Model):
-
     def get_last_message(self):
-        messages = self.messages.get()
-        print(messages)
-        return messages.first()
+        return self.messages.all().first()
 
     @staticmethod
     def get_default_user():

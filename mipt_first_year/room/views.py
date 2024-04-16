@@ -8,7 +8,7 @@ from config import urls
 
 @login_required
 def room(request, slug):
-    room = apps.get_model('room', 'Room').objects.all().get(slug=slug)
+    room = apps.get_model('room', 'Room').objects.get(slug=slug)
     if request.user.id != room.room_user.id and request.user.id != room.room_student.id:
         return redirect('/')
 
@@ -24,12 +24,12 @@ def room(request, slug):
 def list_rooms(request, user_id):
     user = User.objects.get(id=user_id)
     try:
-        student = user.student
-        context = {
-            'rooms': user.room_student
-        }
-    except apps.get_model('student', 'Student').DoesNotExist:
-        context = {
-            'rooms': user.room_user
-        }
+        rooms = apps.get_model('room', 'Room').objects.all().filter(room_user=user)
+    except apps.get_model('room', 'Room').DoesNotExist:
+        rooms = apps.get_model('room', 'Room').objects.all().filter(room_student=user)
+    print(rooms, rooms.first().get_last_message())
+
+    context = {
+        'rooms': rooms
+    }
     return render(request, 'list_rooms.html', context)
