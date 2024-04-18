@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, MAIN))
 SECRET_KEY = 'django-insecure-c^8c&(z5f^(evi17y)c4g7mg0q&lpad*a*fy5t+630jrnh$$%a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['62.113.110.239', 'makleproject.ru']
 
@@ -136,7 +136,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     BASE_DIR / STATIC_URL,
 )
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 

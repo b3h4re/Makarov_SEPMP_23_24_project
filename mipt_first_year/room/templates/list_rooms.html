@@ -14,7 +14,7 @@
                     <img class="rounded-circle student-img" src="{{ room.room_user.profile.image.url }}">
                 {% endif %}
                 <a class="mr-2" href="{% url 'room' slug=room.slug %}">Перейти к чату</a>
-                <small class="text-muted">{{ room.get_last_message }}</small>
+                <small class="text-muted">| {{ room.get_last_message.content }}</small>
             </div>
             <p class="article-content">{{ student.about }}</p>
           </div>
