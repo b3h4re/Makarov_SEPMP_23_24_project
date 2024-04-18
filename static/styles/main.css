@@ -137,7 +137,7 @@ a.article-title:hover {
 
 .header-chat {
   background-color: #FFF;
-  height: 90px;
+  height: 60px;
   box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
   display:flex;
   align-items: center;
@@ -164,6 +164,7 @@ a.article-title:hover {
 
 .chat .messages-chat {
   padding: 25px 35px;
+  height: calc(100% - 50px);
 }
 
 .chat .messages-chat .message {
@@ -224,7 +225,7 @@ a.article-title:hover {
   align-items: center;
   position:absolute;
   bottom: 0;
-  background-color: transparent;
+  background-color: white;
   border-top: 2px solid #EEE;
 
 }
