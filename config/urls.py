@@ -14,7 +14,7 @@ from mipt_first_year.users import views as users_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', base_view.home, name="home"),
-    path('about', base_view.home, name="about"),
+    path('about/', base_view.about, name="about"),
     path('register/', users_view.register, name="register"),
     path('login/', auth_view.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_view.LogoutView.as_view(template_name='logout.html'), name='logout'),
