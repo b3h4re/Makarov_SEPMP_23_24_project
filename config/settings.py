@@ -15,7 +15,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, MAIN))
 SECRET_KEY = 'django-insecure-c^8c&(z5f^(evi17y)c4g7mg0q&lpad*a*fy5t+630jrnh$$%a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+
+SITE_ID = 1
 
 HOST_IP = os.environ.get("HOST_IP")
 SERVER_DOMAIN = os.environ.get("SERVER_DOMAIN")
@@ -23,7 +25,7 @@ SERVER_DOMAIN = os.environ.get("SERVER_DOMAIN")
 ALLOWED_HOSTS = [HOST_IP, SERVER_DOMAIN]
 #ALLOWED_HOSTS = ['62.113.110.239', 'makleproject.ru']
 
-CSRF_TRUSTED_ORIGINS = ['http://' + HOST_IP, 'http://' + SERVER_DOMAIN]
+CSRF_TRUSTED_ORIGINS = ['https://*.' + HOST_IP, 'https://*.' + SERVER_DOMAIN]
 
 # Application definition
 
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
@@ -163,11 +166,13 @@ LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.beget.com'
-EMAIL_PORT = 993
+EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS") #zkmv mssn esuj ujnj
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Other
 
