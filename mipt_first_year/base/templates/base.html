@@ -9,7 +9,7 @@
             <div class="article-metadata">
                 <img class="rounded-circle student-img" src="{{ student.user.profile.image.url }}">
                 <a class="mr-2" href="{% url 'user_page' student.user.id %}">{{ student.user.last_name }} {{ student.user.first_name }}</a>
-                <small class="text-muted">{{ student.field_of_study }}</small>
+                <small class="text-muted"> | {{ student.field_of_study }}</small>
             </div>
 <!--            <h2><a class="article-title" href="#"></a></h2>-->
             <p class="article-content">{{ student.about }}</p>

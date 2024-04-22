@@ -17,9 +17,13 @@ SECRET_KEY = 'django-insecure-c^8c&(z5f^(evi17y)c4g7mg0q&lpad*a*fy5t+630jrnh$$%a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['62.113.110.239', 'makleproject.ru', "127.0.0.1"]
+HOST_IP = os.environ.get("HOST_IP")
+SERVER_DOMAIN = os.environ.get("SERVER_DOMAIN")
 
-CSRF_TRUSTED_ORIGINS = ['http://62.113.110.239', 'http://makleproject.ru']
+ALLOWED_HOSTS = [HOST_IP, SERVER_DOMAIN]
+#ALLOWED_HOSTS = ['62.113.110.239', 'makleproject.ru']
+
+CSRF_TRUSTED_ORIGINS = ['http://' + HOST_IP, 'http://' + SERVER_DOMAIN]
 
 # Application definition
 
@@ -89,12 +93,16 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASE_NAME = os.environ.get("DATABASE_NAME")
+DATABASE_USER = os.environ.get("DATABASE_USER")
+DATABASE_PASS = os.environ.get("DATABASE_PASS")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mipt_sepmp_23_24_project_db',
-        'USER': 'lev',
-        'PASSWORD': 'F10Mak45Lev4514',
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASS,
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
@@ -154,9 +162,10 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.beget.com'
+EMAIL_PORT = 993
 EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS") #zkmv mssn esuj ujnj
 

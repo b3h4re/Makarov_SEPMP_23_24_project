@@ -26,9 +26,11 @@ def list_rooms(request, user_id):
     try:
         rooms = apps.get_model('room', 'Room').objects.all().filter(room_user=user)
     except apps.get_model('room', 'Room').DoesNotExist:
-        rooms = apps.get_model('room', 'Room').objects.all().filter(room_student=user)
+        try:
+            rooms = apps.get_model('room', 'Room').objects.all().filter(room_student=user)
+        except apps.get_model('room', 'Room').DoesNotExist:
+            rooms = apps.get_model('room', 'Room').objects.none()
     print(rooms, rooms.first().get_last_message())
-
     context = {
         'rooms': rooms
     }
