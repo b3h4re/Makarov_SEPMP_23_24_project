@@ -12,20 +12,27 @@ sys.path.insert(0, os.path.join(BASE_DIR, MAIN))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c^8c&(z5f^(evi17y)c4g7mg0q&lpad*a*fy5t+630jrnh$$%a'
+#SECRET_KEY = 'django-insecure-c^8c&(z5f^(evi17y)c4g7mg0q&lpad*a*fy5t+630jrnh$$%a'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 SITE_ID = 1
 
 HOST_IP = os.environ.get("HOST_IP")
 SERVER_DOMAIN = os.environ.get("SERVER_DOMAIN")
 
-ALLOWED_HOSTS = [HOST_IP, SERVER_DOMAIN]
+ALLOWED_HOSTS = [SERVER_DOMAIN, HOST_IP]
 #ALLOWED_HOSTS = ['62.113.110.239', 'makleproject.ru']
 
-CSRF_TRUSTED_ORIGINS = ['https://*.' + HOST_IP, 'https://*.' + SERVER_DOMAIN]
+CSRF_TRUSTED_ORIGINS = ['https://*.' + SERVER_DOMAIN, 'https://*.' + HOST_IP]
+
+#SECURE_SSL_REDIRECT = True
+#SECURE_REDIRECT_EXEMPT = ['https://www.makleproject.ru/*']
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
