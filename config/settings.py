@@ -179,6 +179,8 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS") #zkmv mssn esuj ujnj
 
+PASSWORD_RESET_TIMEOUT = 14400
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Other
