@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+{% autoescape off %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+       {% csrf_token %}
+       Привет, {{ user.username }},
+       Для подтверждения адреса электронной почты нужно перейти по ссылке:
+
+       https://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+    </div>
+{% endblock content %}
