@@ -7,9 +7,9 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 
-from tokens import account_activation_token
+from .tokens import account_activation_token
 
-from forms import UserRegisterForm
+from .forms import UserRegisterForm
 from django.contrib.messages import success, error
 from django.contrib.auth.decorators import login_required
 
