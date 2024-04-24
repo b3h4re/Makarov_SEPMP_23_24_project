@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from django.template.loader import render_to_string
@@ -6,9 +7,9 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 
-from .tokens import account_activation_token
+from tokens import account_activation_token
 
-from .forms import UserRegisterForm
+from forms import UserRegisterForm
 from django.contrib.messages import success, error
 from django.contrib.auth.decorators import login_required
 
@@ -47,6 +48,20 @@ def register(request):
 
 
 def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+
+        success(request, 'Thank you for your email confirmation. Now you can login your account.')
+        return redirect('login')
+    else:
+        error(request, 'Activation link is invalid!')
     return redirect('home')
 
 

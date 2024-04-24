@@ -10,7 +10,7 @@ from config import urls
 def room(request, slug):
     room = apps.get_model('room', 'Room').objects.get(slug=slug)
     if request.user.id != room.room_user.id and request.user.id != room.room_student.id:
-        return redirect('/')
+        return redirect('home')
 
     messages = apps.get_model('room', 'Message').objects.all().filter(room=room)
     context = {
