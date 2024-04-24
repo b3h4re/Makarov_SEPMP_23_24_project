@@ -13,10 +13,13 @@ class Room(models.Model):
 
     name = models.CharField(max_length=256)
     slug = models.SlugField(unique=True)
-    room_student = models.ForeignKey(User, related_name="room_student", on_delete=models.DO_NOTHING,
+    room_student = models.ForeignKey(User, related_name="room_student", on_delete=models.CASCADE,
                                      default=get_default_user())
-    room_user = models.ForeignKey(User, related_name="room_user", on_delete=models.DO_NOTHING,
+    room_user = models.ForeignKey(User, related_name="room_user", on_delete=models.CASCADE,
                                   default=get_default_user())
+
+    def __str__(self):
+        return self.room_user.username + " " + self.room_student.username
 
 
 class Message(models.Model):

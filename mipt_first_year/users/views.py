@@ -9,7 +9,7 @@ from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 
 from .forms import UserRegisterForm
-from django.contrib.messages import success
+from django.contrib.messages import success, error
 from django.contrib.auth.decorators import login_required
 
 
@@ -24,10 +24,10 @@ def activate_email(request, user, to_email):
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
+        success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
             received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
     else:
-        messages.error(request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
+        error(request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
 
 
 def register(request):
