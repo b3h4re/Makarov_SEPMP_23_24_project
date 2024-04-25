@@ -32,6 +32,8 @@ def activate_email(request, user, to_email):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return render(request, 'already_logged_in.html')
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -59,7 +61,7 @@ def activate(request, uidb64, token):
         user.save()
 
         success(request, 'Thank you for your email confirmation. Now you can login your account.')
-        return redirect('login')
+        return render(request, 'activate_account_done.html')
     else:
         error(request, 'Activation link is invalid!')
     return redirect('home')

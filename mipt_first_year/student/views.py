@@ -22,7 +22,7 @@ def start_chat(request, student_id, user_id):
     student = User.objects.get(id=student_id)
     user = User.objects.get(id=user_id)
 
-    print(user.username, student.username)
+    #print(user.username, student.username)
 
     try:
         room = apps.get_model('room', 'Room').objects.get(name=student.username + user.username)

@@ -9,7 +9,9 @@
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Войти</button>
+                {% if request.user.is_authenticated %}
+                {% else %}
+                <button class="btn btn-outline-info" type="submit">Войти</button>{% endif %}
                 <small class="text-muted ml-2">
                     <a href="{% url 'password_reset' %}">Забыли пароль?</a>
                 </small>
