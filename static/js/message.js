@@ -3,9 +3,9 @@ const roomUser = JSON.parse(document.getElementById('json-roomuser').textContent
 const roomStudent = JSON.parse(document.getElementById('json-roomstudent').textContent);
 const userName = JSON.parse(document.getElementById('json-username').textContent);
 const chatSocket = new WebSocket(
-    'ws://'
+    'wss://'
     + window.location.host
-    + '/ws/'
+    + '/websockets/'
     + roomName
     + '/'
 );
