@@ -5,6 +5,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+
 MAIN = "mipt_first_year"
 
 sys.path.insert(0, os.path.join(BASE_DIR, MAIN))
@@ -17,14 +19,14 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 SITE_ID = 1
 
 HOST_IP = os.environ.get("HOST_IP")
 SERVER_DOMAIN = os.environ.get("SERVER_DOMAIN")
 
-ALLOWED_HOSTS = [SERVER_DOMAIN, HOST_IP]
+ALLOWED_HOSTS = [f"www.{SERVER_DOMAIN}", SERVER_DOMAIN, HOST_IP]
 #ALLOWED_HOSTS = ['62.113.110.239', 'makleproject.ru']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.' + SERVER_DOMAIN, 'https://*.' + HOST_IP]
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'daphne',
     'channels',
+
+    #'channels_redis',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -96,7 +100,11 @@ ASGI_APPLICATION = 'config.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+        #'BACKEND': 'channels.layers.InMemoryChannelLayer'
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [("localhost", 6379)],
+        },
     }
 }
 
@@ -154,6 +162,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     BASE_DIR / STATIC_URL,
 )
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'

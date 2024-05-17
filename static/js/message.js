@@ -5,10 +5,14 @@ const userName = JSON.parse(document.getElementById('json-username').textContent
 const chatSocket = new WebSocket(
     'wss://'
     + window.location.host
-    + '/websockets/'
+    + '/wss/'
     + roomName
     + '/'
 );
+
+chatSocket.onopen = function (event) {
+  console.log('onopen')
+}
 
 chatSocket.onclose = function(e) {
     console.log('onclose')
