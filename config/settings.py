@@ -3,13 +3,15 @@ import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+PROJECT_DIR = "Makarov_SEPMP_23_24_project"
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 MAIN = "mipt_first_year"
 
-sys.path.insert(0, os.path.join(BASE_DIR, MAIN))
+sys.path.insert(0, os.path.join(BASE_DIR / PROJECT_DIR, MAIN))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -74,14 +76,14 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR / PROJECT_DIR, 'templates'),
 )
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates'
+            BASE_DIR / PROJECT_DIR / 'templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -160,7 +162,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (
-    BASE_DIR / STATIC_URL,
+    BASE_DIR / PROJECT_DIR / STATIC_URL,
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
