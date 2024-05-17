@@ -26,8 +26,12 @@ def start_chat(request, student_id, user_id):
         room = apps.get_model('room', 'Room').objects.get(name=student.username + user.username)
         slug = room.slug
     except apps.get_model('room', 'Room').DoesNotExist:
-        slug = hex(hash(user.username + student.username))[2:]
-        apps.get_model('room', 'Room').objects.create(room_user=user, room_student=student, slug=slug,
-                                                      name=student.username + user.username)
+        try:
+            room = apps.get_model('room', 'Room').objects.get(name=user.username + student.username)
+            slug = room.slug
+        except apps.get_model('room', 'Room').DoesNotExist:
+            slug = hex(hash(user.username + student.username))[2:]
+            apps.get_model('room', 'Room').objects.create(room_user=user, room_student=student, slug=slug,
+                                                          name=student.username + user.username)
 
     return redirect(f'/room/{slug}')

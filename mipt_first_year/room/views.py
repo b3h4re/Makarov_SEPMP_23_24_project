@@ -24,12 +24,14 @@ def room(request, slug):
 def list_rooms(request, user_id):
     user = User.objects.get(id=user_id)
     try:
-        rooms = apps.get_model('room', 'Room').objects.all().filter(room_user=user)
+        rooms_1 = apps.get_model('room', 'Room').objects.all().filter(room_user=user)
     except apps.get_model('room', 'Room').DoesNotExist:
-        try:
-            rooms = apps.get_model('room', 'Room').objects.all().filter(room_student=user)
-        except apps.get_model('room', 'Room').DoesNotExist:
-            rooms = apps.get_model('room', 'Room').objects.none()
+        rooms_1 = apps.get_model('room', 'Room').objects.none()
+    try:
+        rooms_2 = apps.get_model('room', 'Room').objects.all().filter(room_student=user)
+    except apps.get_model('room', 'Room').DoesNotExist:
+        rooms_2 = apps.get_model('room', 'Room').objects.none()
+    rooms = rooms_1 | rooms_2
     context = {
         'rooms': rooms
     }
